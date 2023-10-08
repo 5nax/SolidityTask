@@ -47,16 +47,9 @@ contract Ballot {
         // Placeholder for the modified function's code.
     }
 
+
     modifier voteEnded() {
         // The 'voteEnded' modifier checks that the voting period has ended.
-        require(block.timestamp >= startTime + votingDuration, "Voting has not yet ended.");
-        // It checks that the current block timestamp is equal or after the voting end time.
-        _;
-        // Placeholder for the modified function's code.
-    }
-
-    modifier voteNotEnded() {
-        // The 'voteNotEnded' modifier checks that the voting period has not ended.
         require(block.timestamp < startTime + votingDuration, "Voting has ended.");
         // It checks that the current block timestamp is before the voting end time.
         _;
@@ -92,7 +85,7 @@ contract Ballot {
         // It assigns a voting weight of 1 to the voter.
     }
 
-    function delegate(address to) external voteNotEnded {
+    function delegate(address to) external voteEnded {
         // This function allows a voter to delegate their vote to another voter.
         Voter storage sender = voters[msg.sender];
         // It retrieves the 'Voter' struct of the sender.
@@ -124,7 +117,7 @@ contract Ballot {
         }
     }
 
-    function vote(uint proposal) external voteNotEnded {
+    function vote(uint proposal) external voteEnded {
         // This function allows a voter to vote for a proposal.
         Voter storage sender = voters[msg.sender];
         // It retrieves the 'Voter' struct of the sender.
