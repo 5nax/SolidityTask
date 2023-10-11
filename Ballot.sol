@@ -50,7 +50,7 @@ contract Ballot {
 
     modifier voteEnded() {
         // The 'voteEnded' modifier checks that the voting period has ended.
-        require(block.timestamp < startTime + votingDuration, "Voting has ended.");
+        require(block.timestamp <= startTime + votingDuration, "Voting has ended.");
         // It checks that the current block timestamp is before the voting end time.
         _;
         // Placeholder for the modified function's code.
